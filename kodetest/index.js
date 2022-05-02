@@ -15,30 +15,41 @@ const pool = new Pool({
 
 const getId = (req, resp) =>
 {
-const id = parseInt(req.params.id);
-pool.query('select * from produksjonsplass where produksjonsplassid = $1',[id], (error, result) => {
-  if (error)
+  const id = parseInt(req.params.id);
+  if (req.params.type == "xml")
   {
-    console.log(error);
+    resp.status(406);
+    resp.send("Type not supported.\n");
+    return;
   }
   else
   {
-    console.log(result.rows);
-    resp.status(200);
-    resp.type('json');
-    resp.json(result.rows);
+    pool.query('select * from produksjonsplass where produksjonsplassid = $1',[id], (error, result) => {
+     if (error)
+     {
+       resp.status(500);
+       resp.send(error);
+       console.log(error);
+     }
+     else
+     {
+       resp.status(200);
+       resp.type('json');
+       resp.json(result.rows);
+     }
+     })
   }
-  })
 }
 
 app.get("/", (req, res) => {
-    return res.status(200).send('Usage:\n1. Something.\n2. Other thing.\n');
+  const endpoint = req.protocol+"://" +req.hostname + ":"+port+"/id/<number>/<json*>\n";
+  res.status(200).send('Usage:\n'+endpoint);
 });
 
 
-app.get("/id/:id", getId);
+app.get("/id/:id/:type?", getId);
 
 app.listen(port, () => { 
-console.log('Server started at localhost: ' + port);
+  console.log('Server started at localhost: ' + port);
 });
 
