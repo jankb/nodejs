@@ -33,15 +33,23 @@ const getId = (req, resp) =>
      }
      else
      {
-       resp.status(200);
-       resp.type('json');
        data = result.rows;
-       const endpoint = req.protocol+"://" +req.hostname + ":"+port+"/id/";
-       navigation = {};
-       navigation["next"] = endpoint + (id + 1);
-       navigation["prev"] = endpoint + (id - 1);
-       data.push(navigation);
-       resp.json(result.rows);
+       if (data.length == 0)
+       {
+         resp.status(404);
+         resp.send("No data found for id " + id);
+       }
+       else
+       {
+         resp.status(200);
+         resp.type('json');
+         const endpoint = req.protocol+"://" +req.hostname + ":"+port+"/id/";
+         navigation = {};
+         navigation["next"] = endpoint + (id + 1);
+         navigation["prev"] = endpoint + (id - 1);
+         data.push(navigation);
+         resp.json(result.rows);
+       }
      }
      })
   }

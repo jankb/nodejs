@@ -12,7 +12,8 @@ $ docker run -e POSTGRES_USER=testuser -d --name kodetest-db -p5432:5432 produks
 ## Server
 ### Run server 
 ```
-node index.js
+npm install
+npm start
 ```
 ### Run test
 ```
