@@ -16,5 +16,5 @@ node index.js
 ```
 ### Run test
 ```
-$ curl -v -H "accept: application/json" 31.187.72.203:8080/id/1000001
+$ curl 31.187.72.203:8080/id/1000001
 ```
