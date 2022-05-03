@@ -19,3 +19,7 @@ npm start
 ```
 $ curl 31.187.72.203:8080/id/1000001
 ```
+Or, if on localhost:
+```
+$ curl localhost:8080/id/1000001
+```
