@@ -35,6 +35,12 @@ const getId = (req, resp) =>
      {
        resp.status(200);
        resp.type('json');
+       data = result.rows;
+       const endpoint = req.protocol+"://" +req.hostname + ":"+port+"/id/";
+       navigation = {};
+       navigation["next"] = endpoint + (id + 1);
+       navigation["prev"] = endpoint + (id - 1);
+       data.push(navigation);
        resp.json(result.rows);
      }
      })
