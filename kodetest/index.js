@@ -60,7 +60,6 @@ const getId = async (req, resp) =>
          if (prevnext[0].next != -1) {navigation["next"] = endpoint + prevnext[0].next};
          if (prevnext[0].prev != -1) {navigation["prev"] = endpoint + prevnext[0].prev};
          data.push(navigation);
-          console.log("Sending response.");
          resp.json(result.rows);
        }
      }
